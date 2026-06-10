@@ -5,7 +5,7 @@ description = "A crew of A2A agents that review a code diff and return structure
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "Shavaiz Butt" }]
+authors = [{ name = "Burhan Hussain", email = "hussainburhan207@gmail.com" }]
 
 # Runtime dependencies. Kept deliberately small — every line here is something
 # a reviewer of this repo will scan, so each one earns its place.
