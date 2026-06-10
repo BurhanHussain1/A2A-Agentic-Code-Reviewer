@@ -10,7 +10,7 @@ authors = [{ name = "Burhan Hussain", email = "hussainburhan207@gmail.com" }]
 # Runtime dependencies. Kept deliberately small — every line here is something
 # a reviewer of this repo will scan, so each one earns its place.
 dependencies = [
-    "a2a-sdk>=0.3.0,<0.4.0",  # Agent2Agent protocol (stable Pydantic-based 0.3.x line)
+    "a2a-sdk[http-server]>=0.3.0,<0.4.0",  # A2A protocol + Starlette/SSE HTTP server (0.3.x)
     "openai>=1.40",           # the LLM each agent calls internally
     "pydantic>=2.7",          # typed data models (Finding, ReviewResult, ...)
     "pydantic-settings>=2.2", # load + validate config from environment variables
