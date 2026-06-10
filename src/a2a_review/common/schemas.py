@@ -69,3 +69,35 @@ class ReviewResult(BaseModel):
     def sorted_findings(self) -> list[Finding]:
         """Return findings ordered worst-first (critical → info)."""
         return sorted(self.findings, key=lambda f: f.severity.rank, reverse=True)
+
+
+class CrewReview(BaseModel):
+    """The orchestrator's merged output: every specialist's result, combined.
+
+    Unlike ``ReviewResult`` (produced by an LLM), this is assembled in code by the
+    orchestrator after it fans the diff out to the specialists. ``errors`` records
+    any specialist that could not be reached or failed, so a partial result is
+    still honest about what is missing.
+    """
+
+    results: list[ReviewResult] = Field(default_factory=list)
+    errors: dict[str, str] = Field(
+        default_factory=dict,
+        description="Map of specialist name -> error message, for any that failed.",
+    )
+
+    @property
+    def total_findings(self) -> int:
+        return sum(len(r.findings) for r in self.results)
+
+    def all_findings(self) -> list[Finding]:
+        """Every finding from every specialist, sorted worst-first."""
+        findings = [f for result in self.results for f in result.findings]
+        return sorted(findings, key=lambda f: f.severity.rank, reverse=True)
+
+    def counts_by_severity(self) -> dict[Severity, int]:
+        """How many findings of each severity, across all specialists."""
+        counts = dict.fromkeys(Severity, 0)
+        for finding in self.all_findings():
+            counts[finding.severity] += 1
+        return counts
