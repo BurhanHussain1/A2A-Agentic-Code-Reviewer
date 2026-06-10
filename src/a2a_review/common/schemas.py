@@ -12,17 +12,17 @@ the models are typed:
 Define the contract once here, and the whole crew stays consistent.
 """
 
-from enum import Enum
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     """How serious a finding is.
 
-    Subclassing ``str`` means a Severity *is* a string ("high"), so it serializes
-    cleanly to JSON while still being a closed set of allowed values — an agent
-    can never invent a severity like "kinda bad".
+    ``StrEnum`` (Python 3.11+) means a Severity *is* a string ("high"), so it
+    serializes cleanly to JSON while still being a closed set of allowed values --
+    an agent can never invent a severity like "kinda bad".
     """
 
     CRITICAL = "critical"

@@ -2,8 +2,8 @@
 
 In A2A, discovery comes before communication. Before anything can send work to
 this agent, it must be able to *find* it and learn what it does. That happens
-through an **Agent Card** -- a small JSON document the agent serves at a
-well-known URL (e.g. ``/.well-known/agent.json``) advertising its name, the
+through an **Agent Card** -- a small JSON document the agent serves at the
+well-known path ``/.well-known/agent-card.json`` advertising its name, the
 skills it offers, and the address to reach it.
 
 This module builds that card. The A2A server (see ``server.py``) is what actually
