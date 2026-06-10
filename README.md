@@ -136,10 +136,10 @@ src/a2a_review/
 
 - [x] Project scaffold (`pyproject.toml`, `uv`, `ruff`)
 - [x] Typed configuration (`common/config.py`)
-- [ ] Review data contract (`common/schemas.py`)
-- [ ] OpenAI client wrapper (`common/llm.py`)
-- [ ] Security agent (Agent Card + executor + A2A server)
-- [ ] Style / quality agent
+- [x] Review data contract (`common/schemas.py`)
+- [x] OpenAI client wrapper (`common/llm.py`)
+- [x] Security agent (Agent Card + executor + A2A server)
+- [x] Style / quality agent
 - [ ] Orchestrator agent (discovery + fan-out + merge)
 - [ ] `review` CLI client
 - [ ] Streaming progress over A2A Server-Sent Events
