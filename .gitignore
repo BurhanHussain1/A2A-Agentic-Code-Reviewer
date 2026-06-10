@@ -1,0 +1,26 @@
+# --- Secrets ---
+# The real secrets live in .env, which must NEVER be committed.
+# We commit .env.example (a safe template) instead.
+.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environment (uv creates .venv) ---
+.venv/
+
+# --- Tooling caches ---
+.pytest_cache/
+.ruff_cache/
+uv.lock.tmp
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

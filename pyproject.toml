@@ -1,0 +1,49 @@
+[project]
+name = "a2a-code-review-crew"
+version = "0.1.0"
+description = "A crew of A2A agents that review a code diff and return structured findings."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Shavaiz Butt" }]
+
+# Runtime dependencies. Kept deliberately small — every line here is something
+# a reviewer of this repo will scan, so each one earns its place.
+dependencies = [
+    "a2a-sdk>=1.1.0",         # the Agent2Agent protocol: servers, clients, types
+    "openai>=1.40",           # the LLM each agent calls internally
+    "pydantic>=2.7",          # typed data models (Finding, ReviewResult, ...)
+    "pydantic-settings>=2.2", # load + validate config from environment variables
+    "uvicorn[standard]>=0.30",# ASGI server that actually runs each A2A agent
+    "httpx>=0.27",            # async HTTP client used by the A2A client side
+    "typer>=0.12",            # tiny, type-hint-driven CLI framework
+    "rich>=13.7",             # pretty terminal output (nice for the demo)
+]
+
+[project.optional-dependencies]
+# Installed only for development: `uv sync --extra dev`
+dev = [
+    "pytest>=8.2",
+    "ruff>=0.5",              # linter + formatter; keeps the codebase clean
+]
+
+# Console commands created when the package is installed. After `uv sync` you can
+# run `review` directly instead of `python -m a2a_review.client.cli`.
+[project.scripts]
+review = "a2a_review.client.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# Tell the build backend that our importable package lives under src/.
+[tool.hatch.build.targets.wheel]
+packages = ["src/a2a_review"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# A sensible, not-overbearing rule set: pycodestyle, pyflakes, isort, bugbear, pyupgrade.
+select = ["E", "F", "I", "B", "UP"]
