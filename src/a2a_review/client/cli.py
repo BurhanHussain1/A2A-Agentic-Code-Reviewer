@@ -85,7 +85,7 @@ def main(
 
     console.print(f"[dim]Sending {diff_file} to the crew at {url} ...[/dim]")
     try:
-        review = asyncio.run(request_review(url, diff))
+        review = asyncio.run(request_review(url, diff, result_model=CrewReview))
     except Exception as exc:
         console.print(f"[bold red]Review failed:[/bold red] {exc}")
         raise typer.Exit(code=2) from exc

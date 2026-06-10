@@ -13,17 +13,34 @@ That is the exact mirror of what the executor (server side) does, viewed from th
 caller's end.
 """
 
+from typing import TypeVar
+
 import httpx
 from a2a.client import A2ACardResolver, ClientConfig, ClientFactory
 from a2a.client.helpers import create_text_message_object
 from a2a.types import Role, Task, TaskState
 from a2a.utils import get_data_parts, get_text_parts
+from pydantic import BaseModel
 
 from a2a_review.common.schemas import ReviewResult
 
+# The result artifact is validated into whichever model the caller asks for:
+# specialists return a ReviewResult, the orchestrator returns a CrewReview.
+T = TypeVar("T", bound=BaseModel)
 
-async def request_review(base_url: str, diff: str, *, timeout: float = 120.0) -> ReviewResult:
+
+async def request_review(
+    base_url: str,
+    diff: str,
+    *,
+    result_model: type[T] = ReviewResult,
+    timeout: float = 120.0,
+) -> T:
     """Ask the A2A agent at ``base_url`` to review ``diff`` and return its result.
+
+    ``result_model`` is the Pydantic type the result artifact is validated into.
+    Specialists return a ``ReviewResult`` (the default); the orchestrator returns a
+    ``CrewReview``, so the CLI passes ``result_model=CrewReview``.
 
     Raises ``RuntimeError`` if the agent cannot be reached, the task fails, or the
     completed task carries no review data.
@@ -62,7 +79,7 @@ async def request_review(base_url: str, diff: str, *, timeout: float = 120.0) ->
     for artifact in final_task.artifacts or []:
         data_parts = get_data_parts(artifact.parts)
         if data_parts:
-            return ReviewResult.model_validate(data_parts[0])
+            return result_model.model_validate(data_parts[0])
 
     raise RuntimeError(f"Completed task from {base_url} contained no review data.")
 
