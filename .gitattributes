@@ -1,0 +1,10 @@
+# Normalize line endings: store text files as LF in the repository, and check
+# them out with each OS's native convention. This keeps diffs clean across
+# Windows/macOS/Linux and silences "LF will be replaced by CRLF" warnings.
+* text=auto
+
+# Files that must always be LF, even on Windows checkouts.
+*.py text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.diff text eol=lf

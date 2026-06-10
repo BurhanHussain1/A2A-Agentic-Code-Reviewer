@@ -1,0 +1,21 @@
+--- a/app/users.py
++++ b/app/users.py
+@@ -1,4 +1,21 @@
+ import sqlite3
+
++API_KEY = "EXAMPLE_hardcoded_secret_do_not_do_this"
++
++
++def get_user(uid):
++    conn = sqlite3.connect("app.db")
++    query = "SELECT * FROM users WHERE id = " + str(uid)
++    return conn.execute(query).fetchone()
++
++
++def p(d):
++    r = []
++    for i in range(len(d)):
++        if d[i] != None:
++            if d[i]['active'] == True:
++                r.append(d[i])
++    return r

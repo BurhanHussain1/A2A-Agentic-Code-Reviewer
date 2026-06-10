@@ -141,7 +141,7 @@ src/a2a_review/
 - [x] Security agent (Agent Card + executor + A2A server)
 - [x] Style / quality agent
 - [x] Orchestrator agent (discovery + fan-out + merge)
-- [ ] `review` CLI client
+- [x] `review` CLI client
 - [ ] Streaming progress over A2A Server-Sent Events
 - [ ] GitHub integration (review real pull requests)
 - [ ] Containerize + deploy (Cloud Run)
