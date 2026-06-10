@@ -140,7 +140,7 @@ src/a2a_review/
 - [x] OpenAI client wrapper (`common/llm.py`)
 - [x] Security agent (Agent Card + executor + A2A server)
 - [x] Style / quality agent
-- [ ] Orchestrator agent (discovery + fan-out + merge)
+- [x] Orchestrator agent (discovery + fan-out + merge)
 - [ ] `review` CLI client
 - [ ] Streaming progress over A2A Server-Sent Events
 - [ ] GitHub integration (review real pull requests)
